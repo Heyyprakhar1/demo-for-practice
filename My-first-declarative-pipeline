@@ -1,0 +1,30 @@
+pipeline{
+    agent any
+    stages{
+        stage('continous Download') {
+            steps{
+                git branch: 'main', url: 'https://github.com/Heyyprakhar1/demo-for-practice.git'
+            }
+        }
+        stage('continous Build') {
+            steps{
+               sh 'python3 new.py' 
+            }
+        }
+        stage('continous Deploy') {
+            steps{
+                sh 'scp /var/lib/jenkins/workspace/New-dec-Pipe/new.py ubuntu@10.0.2.194:/home/ubuntu/new-folder/new.py'
+            }
+        }
+        stage('continous testing') {
+            steps{
+                sh 'python3 /var/lib/jenkins/workspace/New-dec-Pipe/new.py'
+            }
+        }
+        stage('continous release') {
+            steps{
+                sh 'scp /var/lib/jenkins/workspace/New-dec-Pipe/new.py ubuntu@10.0.2.194:/home/ubuntu/new-folder/new.py'
+            }
+        }
+    }
+}
